@@ -1,17 +1,21 @@
-from app.logger import logger
+from app.drive import DriveClient
 from app.config import CHANNELS
-from app.database import Database
 
 
 def main():
 
-  db = Database()
-  db.initialize()
+    drive = DriveClient()
 
-  db.add_channel(
-    "channel1",
-    "folder1",
-    "tokens/channel1.json",
-)
+    videos = drive.get_video_files(
+        CHANNELS["channel1"]["folder_id"]
+    )
 
-  db.close()
+    print(f"\nFound {len(videos)} videos\n")
+
+    for video in videos[:10]:
+
+        print(video["name"])
+
+
+if __name__ == "__main__":
+    main()

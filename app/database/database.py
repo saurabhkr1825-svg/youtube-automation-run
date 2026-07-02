@@ -113,6 +113,56 @@ class Database:
 
         logger.info(f"Channel '{name}' registered.")
 
+    def get_channel(self, name: str):
+        self.cursor.execute(
+            """
+            SELECT *
+            FROM channels
+            WHERE name = ?
+            """,
+            (name,),
+        )
+
+        return self.cursor.fetchone()
+
+    def add_upload(
+        self,
+        channel,
+        filename,
+        drive_file_id="",
+        youtube_video_id="",
+        title="",
+        status="SUCCESS",
+    ):
+        self.cursor.execute(
+            """
+            INSERT OR IGNORE INTO uploads
+            (
+                channel,
+                filename,
+                drive_file_id,
+                youtube_video_id,
+                title,
+                status,
+                uploaded,
+                upload_date
+            )
+            VALUES (?, ?, ?, ?, ?, ?, 1, datetime('now'))
+            """,
+            (
+                channel,
+                filename,
+                drive_file_id,
+                youtube_video_id,
+                title,
+                status,
+            ),
+        )
+
+        self.connection.commit()
+
+        logger.info(f"Upload record added: {filename}")
+
     def close(self):
         self.connection.close()
     

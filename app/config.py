@@ -3,7 +3,6 @@ from pathlib import Path
 # ===========================
 # PROJECT PATHS
 # ===========================
-
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
 DATA_DIR = ROOT_DIR / "data"
@@ -51,58 +50,71 @@ CHANNELS = {
 
     "channel1": {
         "name": "Channel 1",
-        "folder_id": "",
+        "folder_id": "1EYh2ciXrClaa6VqvTugT0svN65ioQwuP",
         "token": TOKENS_DIR / "channel1.json",
         "privacy": "public"
     },
 
     "channel2": {
         "name": "Channel 2",
-        "folder_id": "",
+        "folder_id": "1fHocToV-tG3wnJw97lY-AyiPeYv9zc41",
         "token": TOKENS_DIR / "channel2.json",
         "privacy": "public"
     },
 
     "channel3": {
         "name": "Channel 3",
-        "folder_id": "",
+        "folder_id": "1-ZmLAA8jny3NgdcQhRziebTUZERilVV1",
         "token": TOKENS_DIR / "channel3.json",
         "privacy": "public"
     },
 
     "channel4": {
         "name": "Channel 4",
-        "folder_id": "",
+        "folder_id": "1cEjHNHOOTet7NmhzOKP2OxA9Ca9sBwru",
         "token": TOKENS_DIR / "channel4.json",
         "privacy": "public"
     },
 
     "channel5": {
         "name": "Channel 5",
-        "folder_id": "",
+        "folder_id": "1vuqz9RXbIU6puItX1xPAjx8svAWrR7Zw",
         "token": TOKENS_DIR / "channel5.json",
         "privacy": "public"
     },
 
     "channel6": {
         "name": "Channel 6",
-        "folder_id": "",
+        "folder_id": "1zamOEWf8pszbKI8Pvx8nH7WhuppN1F7h",
         "token": TOKENS_DIR / "channel6.json",
         "privacy": "public"
     },
 
     "channel7": {
         "name": "Channel 7",
-        "folder_id": "",
+        "folder_id": "1EcyW3uXMPwYlECrAaHS1Rh50zat08gIJ",
         "token": TOKENS_DIR / "channel7.json",
         "privacy": "public"
     },
 
     "channel8": {
         "name": "Channel 8",
-        "folder_id": "",
+        "folder_id": "15076k_JTcPC_QudAU5bwf8XJxaPC40Oe",
         "token": TOKENS_DIR / "channel8.json",
         "privacy": "public"
     }
 
 }
+def list_files(self, folder_id):
+    print("Received folder_id:", repr(folder_id))
+
+    results = (
+        self.service.files()
+        .list(
+            q=f"'{folder_id}' in parents and trashed=false",
+            fields="files(id,name,mimeType)"
+        )
+        .execute()
+    )
+
+    return results.get("files", [])
