@@ -309,7 +309,7 @@ uploaded_at
 
 # 👨‍💻 Author
 
-**Saurabh Kumar**
+**Saurabh**
 
 B.Tech Civil Engineering  
 Indian Institute of Technology Patna
