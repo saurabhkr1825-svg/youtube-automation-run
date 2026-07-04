@@ -10,11 +10,20 @@ def main():
         CHANNELS["channel1"]["folder_id"]
     )
 
-    print(f"\nFound {len(videos)} videos\n")
+    if not videos:
+        print("No videos found.")
+        return
 
-    for video in videos[:10]:
+    video = videos[0]
 
-        print(video["name"])
+    print(video["name"])
+
+    path = drive.download_file(
+        video["id"],
+        video["name"]
+    )
+
+    print(path)
 
 
 if __name__ == "__main__":
