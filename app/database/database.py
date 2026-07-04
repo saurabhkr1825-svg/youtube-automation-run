@@ -82,15 +82,20 @@ class Database:
         logger.info("Database tables created successfully.")
     
 
-    def is_uploaded(self, channel: str, filename: str) -> bool:
+    def is_uploaded(self, channel: str, drive_file_id: str) -> bool:
         self.cursor.execute(
             """
             SELECT 1
             FROM uploads
-            WHERE channel = ? AND filename = ?
+            WHERE channel = ?
+            AND drive_file_id = ?
             """,
-            (channel, filename),
+            (
+                channel,
+                drive_file_id
+            ),
         )
+
         return self.cursor.fetchone() is not None
 
     def add_channel(
@@ -127,12 +132,12 @@ class Database:
 
     def add_upload(
         self,
-        channel,
-        filename,
-        drive_file_id="",
-        youtube_video_id="",
-        title="",
-        status="SUCCESS",
+        channel: str,
+        filename: str,
+        drive_file_id: str,
+        youtube_video_id: str,
+        title: str,
+        status: str = "PENDING",
     ):
         self.cursor.execute(
             """
@@ -160,8 +165,6 @@ class Database:
         )
 
         self.connection.commit()
-
-        logger.info(f"Upload record added: {filename}")
 
     def close(self):
         self.connection.close()

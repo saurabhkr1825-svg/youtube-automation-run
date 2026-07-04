@@ -39,3 +39,18 @@ class DriveClient:
             file_id,
             filename
         )
+    
+    def move_file(self, file_id: str, folder_id: str):
+        file = self.service.files().get(
+            fileId=file_id,
+            fields="parents"
+        ).execute()
+
+        previous_parents = ",".join(file.get("parents", []))
+
+        return self.service.files().update(
+            fileId=file_id,
+            addParents=folder_id,
+            removeParents=previous_parents,
+            fields="id, parents"
+        ).execute()
