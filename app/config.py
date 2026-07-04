@@ -34,8 +34,9 @@ DATABASE_PATH = DATA_DIR / "uploads.db"
 # GOOGLE DRIVE
 # ===========================
 
-SERVICE_ACCOUNT_FILE = CREDENTIALS_DIR / "service_account.json"
-
+SERVICE_ACCOUNT_FILE = (
+    CREDENTIALS_DIR / "service_account.json"
+)
 # ===========================
 # YOUTUBE
 # ===========================

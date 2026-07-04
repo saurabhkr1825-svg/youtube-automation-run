@@ -1,1 +1,1 @@
-from .database import Database
+from .firestore_database import FirestoreDatabase as Database

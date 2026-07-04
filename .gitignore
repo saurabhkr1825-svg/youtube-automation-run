@@ -11,3 +11,9 @@ logs/
 temp/
 
 .env
+assets/credentials/service_account.json
+tokens/
+.env
+__pycache__/
+*.pyc
+data/uploads.db
